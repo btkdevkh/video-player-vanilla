@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/video-solid.svg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <script src="app.js" defer></script>
+  <title>MusikBtkh | Video Player</title>
+</head>
+<body>
+  <div class="container">
+    <figure class="video__figure">
+      <h4 class="video__title"></h4>
+      <video preload="metadata"></video>
+      <div class="video__progress__bar">
+        <div class="video__bar__in__progress"></div>
+      </div>
+
+      <div class="play__btn__in__frame">
+        <i class="fa-solid fa-play"></i>
+      </div>
+
+      <div class="resolutions">
+        <span>
+          <span class="resolution__in__px"></span>
+          <span class="resolution__hd">HD</span>
+        </span>
+      </div>
+    </figure>
+
+    <div class="controls">
+      <div class="controls__left__btns">
+        <div class="repeat__btn">
+          <i class="fa-solid fa-rotate-right"></i>
+        </div>
+        <div class="volume__btn">
+          <i class="fa-solid fa-volume-high"></i>
+        </div>
+        <div class="duration__text"></div>
+      </div>
+
+      <div class="controls__center__btns">
+        <div class="prev__btn"><i class="fa-solid fa-backward-step"></i></div>
+        <div class="play__btn"><i class="fa-solid fa-play"></i></div>
+        <div class="next__btn"><i class="fa-solid fa-forward-step"></i></div>
+      </div>
+
+      <div class="controls__right__btns">
+        <div class="resolution__btn">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="fullscreen__btn">
+          <i class="fa-solid fa-expand"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

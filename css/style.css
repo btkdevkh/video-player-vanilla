@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inspiration', cursive;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.container {
+  padding: 0 5px;
+}
+
+.video__figure {
+  position: relative;
+}
+
+.video__title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  opacity: 0.8;
+  font-size: 2rem;
+}
+
+video {
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 5px 5px 50px #000000;
+}
+
+video:-webkit-full-screen  {
+  width: 100%;
+  height: 100%;
+}
+
+video::-webkit-media-controls-enclosure {
+  display:none !important;
+}
+
+.play__btn__in__frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.video__progress__bar {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  visibility: hidden;
+  transition: width 0.3s;
+}
+
+.video__progress__bar.visible {
+  cursor: pointer;
+  visibility: visible;
+}
+
+.video__bar__in__progress {
+  position: absolute;
+}
+
+.controls {
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  color: white;
+  box-shadow: 5px 5px 50px #000000;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+
+.controls__left__btns {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.controls__left__btns div {
+  display: flex;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.duration__text {
+  font-family: sans-serif;
+}
+
+.controls__center__btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controls__center__btns div {
+  display: flex;
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+.controls__right__btns {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.controls__right__btns div {
+  display: flex;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+/* Resolutions */
+.resolutions {
+  width: 150px;
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px 0;
+  border-radius: 5px;
+  color: white;
+  display: none;
+}
+
+.resolutions span {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.resolutions.active {
+  display: flex;
+}
+
+.resolution__in__px {
+  font-family: sans-serif;
+}
+.resolution__hd {
+  font-size: 0.8rem;
+  color: red;
+  font-family: sans-serif;
+}
