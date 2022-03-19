@@ -58,12 +58,13 @@ function pause() {
   video.pause()
 }
 
-function prevVideo() {
+function prevVideo() {  
   videoIndex--
 
   if(videoIndex < 0) videoIndex = videos.length - 1
 
   loadVideo(videos[videoIndex])
+  clearInterval(timer)
   play()
 }
 
@@ -73,6 +74,7 @@ function nextVideo() {
   if(videoIndex > videos.length - 1) videoIndex = 0
 
   loadVideo(videos[videoIndex])
+  clearInterval(timer)
   play()
 }
 
@@ -100,10 +102,11 @@ function setProgress(e) {
 
   minutes = minutes < 10 ? "0" + minutes : minutes
   secondes = secondes < 10 ? "0" + secondes : secondes
+
+  counter.textContent = `${minutes}:${secondes}`
   
   clearInterval(timer)
   play()
-  counter.textContent = `/${minutes}:${secondes}`
 }
 
 function updateProgressBar(e) {
@@ -139,20 +142,39 @@ function handleKeydown() {
   }
 }
 
-// Events
-document.onreadystatechange = () => {
+function setTimer() {
   let duration = video.duration / 60
-  let temps = duration * 60
+  let timeInSeconds = duration * 60
+  let currentVidTime = video.currentTime
 
-  let minutes = parseInt(temps / 60)
-  let secondes = parseInt(temps % 60)
+  return setInterval(() => {
+    let minutes = parseInt(currentVidTime / 60, 10)
+    let secondes = parseInt(currentVidTime % 60, 10)
+
+    minutes = minutes < 10 ? "0" + minutes : minutes
+    secondes = secondes < 10 ? "0" + secondes : secondes
+
+    counter.textContent = `${minutes}:${secondes}`
+
+    currentVidTime = currentVidTime >= timeInSeconds ? 0 : currentVidTime + 1
+  }, 1000)
+}
+
+/*
+function displayDuration() {
+  let duration = video.duration / 60
+  let timeInSeconds = duration * 60
+
+  let minutes = parseInt(timeInSeconds / 60, 10)
+  let secondes = parseInt(timeInSeconds % 60, 10)
 
   minutes = minutes < 10 ? "0" + minutes : minutes
   secondes = secondes < 10 ? "0" + secondes : secondes
-  
-  durationText.textContent = `${minutes}:${secondes}`
-}
 
+  durationText.textContent = `${minutes}:${secondes}`
+}*/
+
+// Events
 document.addEventListener('DOMContentLoaded', () => {
   loadVideo(videos[videoIndex])
 
@@ -219,21 +241,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
-
-function setTimer() {
-  let duration = video.duration / 60
-  let timeInSeconds = duration * 60
-  let currentVidTime = video.currentTime
-
-  return setInterval(() => {
-    let minutes = parseInt(currentVidTime / 60, 10)
-    let secondes = parseInt(currentVidTime % 60, 10)
-
-    minutes = minutes < 10 ? "0" + minutes : minutes
-    secondes = secondes < 10 ? "0" + secondes : secondes
-
-    counter.textContent = `/${minutes}:${secondes}`
-
-    currentVidTime = currentVidTime >= timeInSeconds ? 0 : currentVidTime + 1
-  }, 1000)
-}
