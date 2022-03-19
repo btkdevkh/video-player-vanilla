@@ -140,6 +140,19 @@ function handleKeydown() {
 }
 
 // Events
+document.onreadystatechange = () => {
+  let duration = video.duration / 60
+  let temps = duration * 60
+
+  let minutes = parseInt(temps / 60)
+  let secondes = parseInt(temps % 60)
+
+  minutes = minutes < 10 ? "0" + minutes : minutes
+  secondes = secondes < 10 ? "0" + secondes : secondes
+  
+  durationText.textContent = `${minutes}:${secondes}`
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadVideo(videos[videoIndex])
 
@@ -159,19 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     iPlayEl.classList.remove('fa-pause')
     counter.textContent = ''
   }
-  
-  document.addEventListener('readystatechange', () => {
-    let duration = video.duration / 60
-    let temps = duration * 60
-
-    let minutes = parseInt(temps / 60)
-    let secondes = parseInt(temps % 60)
-
-    minutes = minutes < 10 ? "0" + minutes : minutes
-    secondes = secondes < 10 ? "0" + secondes : secondes
-    
-    durationText.textContent = `${minutes}:${secondes}`
-  })
 
   playBtn.addEventListener('click', () => {    
     iPlayEl.classList.contains('fa-play') ?
