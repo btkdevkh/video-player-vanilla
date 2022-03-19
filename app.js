@@ -11,6 +11,7 @@ const resolutionsInPixel = document.querySelector('.resolution__in__px')
 const controls = document.querySelector('.controls')
 const volumeBtn = document.querySelector('.volume__btn')
 const durationText = document.querySelector('.duration__text')
+const counter = document.querySelector('.counter')
 const playBtn = document.querySelector('.play__btn')
 const prevBtn = document.querySelector('.prev__btn')
 const nextBtn = document.querySelector('.next__btn')
@@ -25,12 +26,13 @@ const iTick = document.createElement('i')
 const iVol = volumeBtn.querySelector('i')
 
 // Var
+let timer
 let videoIndex = 0
 let isRepeat = true
 
 // Datas
 const videos = [
-  { id: 5, title: "Our satellite", path: "video/moon.mp4#t=30" }
+  { id: 5, title: "Our satellite", path: "video/moon.mp4#t=0" }
 ]
 
 // Functions
@@ -39,6 +41,8 @@ function loadVideo(vid) {
 }
 
 function play() {
+  timer = setTimer()
+
   iPlayEl.classList.remove('fa-play')
   iPlayEl.classList.add('fa-pause')
 
@@ -46,6 +50,8 @@ function play() {
 }
 
 function pause() {
+  clearInterval(timer)
+
   iPlayEl.classList.add('fa-play')
   iPlayEl.classList.remove('fa-pause')
 
@@ -95,7 +101,9 @@ function setProgress(e) {
   minutes = minutes < 10 ? "0" + minutes : minutes
   secondes = secondes < 10 ? "0" + secondes : secondes
   
-  durationText.textContent = `${minutes}:${secondes}`
+  clearInterval(timer)
+  play()
+  counter.textContent = `/${minutes}:${secondes}`
 }
 
 function updateProgressBar(e) {
@@ -145,8 +153,28 @@ document.addEventListener('DOMContentLoaded', () => {
   video.addEventListener('click', () => handleKeydown())
   document.addEventListener('keydown', (e) => e.code === "Space" && handleKeydown())
 
-  playBtn.addEventListener('click', () => {
-    iPlayEl.classList.contains('fa-play') ? 
+  video.onended = () => {
+    clearInterval(timer)
+    iPlayEl.classList.add('fa-play')
+    iPlayEl.classList.remove('fa-pause')
+    counter.textContent = ''
+  }
+  
+  document.addEventListener('readystatechange', () => {
+    let duration = video.duration / 60
+    let temps = duration * 60
+
+    let minutes = parseInt(temps / 60)
+    let secondes = parseInt(temps % 60)
+
+    minutes = minutes < 10 ? "0" + minutes : minutes
+    secondes = secondes < 10 ? "0" + secondes : secondes
+    
+    durationText.textContent = `${minutes}:${secondes}`
+  })
+
+  playBtn.addEventListener('click', () => {    
+    iPlayEl.classList.contains('fa-play') ?
     play() :
     pause()
   })
@@ -168,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   figure.addEventListener('mouseleave', () => {
     progressBar.classList.remove('visible')
-    durationText.textContent = ''
     videoTitle.textContent = ''
   })
 
@@ -193,21 +220,20 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-/*
 function setTimer() {
-  let duration = video.duration / 60;
-  let temps = duration * 60
+  let duration = video.duration / 60
+  let timeInSeconds = duration * 60
+  let currentVidTime = video.currentTime
 
-  let timer = setInterval(() => {
-    let minutes = parseInt(temps / 60, 10)
-    let secondes = parseInt(temps % 60, 10)
+  return setInterval(() => {
+    let minutes = parseInt(currentVidTime / 60, 10)
+    let secondes = parseInt(currentVidTime % 60, 10)
 
     minutes = minutes < 10 ? "0" + minutes : minutes
     secondes = secondes < 10 ? "0" + secondes : secondes
 
-    duration.innerText = `${minutes}:${secondes}`
+    counter.textContent = `/${minutes}:${secondes}`
 
-    temps = temps <= 0 ? 0 : temps - 1
+    currentVidTime = currentVidTime >= timeInSeconds ? 0 : currentVidTime + 1
   }, 1000)
 }
-*/

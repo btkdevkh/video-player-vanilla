@@ -16,6 +16,16 @@ body {
   background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
+li,
+input,
+textarea,
+button,
+select,
+div,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .container {
   padding: 0 5px;
 }
@@ -94,13 +104,13 @@ video::-webkit-media-controls-enclosure {
   justify-content: flex-start;
   align-items: center;
 }
-.controls__left__btns div {
+.controls__left__btns div:not(.counter, .duration__text) {
   display: flex;
   margin: 0 5px;
   cursor: pointer;
 }
 
-.duration__text {
+.duration__text, .counter {
   font-family: sans-serif;
 }
 
